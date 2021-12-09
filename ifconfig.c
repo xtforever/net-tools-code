@@ -797,7 +797,8 @@ int main(int argc, char **argv)
 		}
 
 		memcpy(&ip, &sin->sin_addr.s_addr, sizeof(ip));
-
+		nm=0; //make gcc happy "may be used uninitialized"
+		bc=0; //make gcc happy "may be used uninitialized"
 		if (get_nmbc_parent(ifr.ifr_name, &nm, &bc) < 0) {
 			fprintf(stderr, _("Interface %s not initialized\n"),
 				ifr.ifr_name);
@@ -890,6 +891,8 @@ int main(int argc, char **argv)
 
 		/* Clear "ip" in case sizeof(unsigned long) > sizeof(sin.sin_addr.s_addr) */
 		ip = 0;
+		nm=0; //  make gcc happy "may be used uninitialized"
+		bc=0;
 		memcpy(&ip, &sin->sin_addr.s_addr, sizeof(ip));
 
 		if (get_nmbc_parent(ifr.ifr_name, &nm, &bc) < 0) {
